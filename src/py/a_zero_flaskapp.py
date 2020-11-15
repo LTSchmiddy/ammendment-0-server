@@ -22,6 +22,7 @@ def construct_app():
     import db
     db.init()
 
+
     return server.flask_site.app
 
 app = construct_app()
