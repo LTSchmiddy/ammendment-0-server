@@ -39,7 +39,7 @@ def handle_entry(name: str, fullpath: str, parent_dir: str):
             compile_cython(classname, fullpath)
             # Moving File:
             outname = list_get(lambda x: x.startswith(classname) and x.endswith(platform_extension), os.listdir("./"))
-            # print(outname)
+            print(f"Generated {outname}...")
             dst_path = os.path.join(parent_dir, filename)
             shutil.move(outname, dst_path + platform_extension)
             
@@ -70,9 +70,8 @@ def compile_cython(classname, path):
 dirtree = get_dir_tree(out_dir, handle_entry)
 
 # Creating Entrypoint File:
-entry_file = open("cython_build/a_zero_start.py", 'w')
-# entry_file.write("import a_zero; a_zero.main()")
-entry_file.write("import a_zero_flask; app=a_zero.app")
+entry_file = open("cython_build/a_zero_server_app.py", 'w')
+entry_file.write("import a_zero; a_zero.main()")
 entry_file.close()
 
 print("Complete!")
