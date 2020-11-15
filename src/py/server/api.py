@@ -12,7 +12,7 @@ from Crypto.PublicKey import RSA
 from settings import current, exec_dir
 
 # private_key = RSA.import_key(open("pkey.pem").read())
-private_key = \
+private_key =  RSA.import_key(
 """
 -----BEGIN RSA PRIVATE KEY-----
 MIIEowIBAAKCAQEAg+wSepQEEgOGYCp9u8fykOjKJm3lhUr0S1QZcSceez7mzTIP
@@ -41,7 +41,7 @@ EiK29QKBgAjpufv779bYJQhu4BW09+Qk1zwn0AOTL2HqAJbWhaSrEVuEfQWDVqLm
 tBDQO6iKAjbjgsYXWmrQ1zBK/DkKwVdvNNf2081XxCW8vD1vsxnkXkbYWL8kZhtu
 Z1Q2P1Fhqu5WTVpdYYpNZ7YXz5l0VGz+0x77qzEleAxL1q/WEeWB
 -----END RSA PRIVATE KEY-----
-""".strip(" \n\r")
+""".strip(" \n\r"))
 
 cipher_rsa = PKCS1_OAEP.new(private_key)
 
