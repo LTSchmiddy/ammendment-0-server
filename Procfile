@@ -1,1 +1,1 @@
-web: python -c "import cython_out.a_zero; a_zero.main()"
+web: python -c "import cython_build.a_zero; a_zero.main()"
