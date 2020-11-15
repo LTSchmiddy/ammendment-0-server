@@ -1,0 +1,11 @@
+/.vscode/*
+
+/venv/*
+/build/*
+/cython_build/*
+**/__pycache__/
+
+/site-data.db
+
+*.pem
+*.log
