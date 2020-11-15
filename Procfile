@@ -1,0 +1,1 @@
+web: python -c "cython_out.a_zero; a_zero.main()"

@@ -5,6 +5,9 @@ import Cython
 from src.py.utils import get_dir_tree, list_get
 from src.py.utils import anon_func as af
 
+# from src.py import settings
+# settings.load_settings()
+
 from distutils.core import setup, Extension
 from Cython.Build import *
 from Cython.Compiler.Errors import CompileError
@@ -63,8 +66,6 @@ def compile_cython(classname, path):
         )
     )
     
-    
-
     
 dirtree = get_dir_tree(out_dir, handle_entry)
 

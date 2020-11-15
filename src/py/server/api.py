@@ -37,8 +37,8 @@ def index():
     
     decrypted = cipher_rsa.decrypt(message_bytes)
     
-    print(f"{message=}")
-    print(f"{decrypted=}")
+    print(f"{message}")
+    print(f"{decrypted}")
     
     return decrypted
 
