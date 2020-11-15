@@ -17,7 +17,7 @@ cython_suffix = ".pyx"
 source_dir = "./src/py"
 out_dir = "./cython_build"
 
-delete_unneeded_files = False
+delete_unneeded_files = True
 
 platform_extension = af.tget(os.name == 'nt', ".pyd", ".so")
 

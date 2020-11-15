@@ -6,3 +6,10 @@ subprocess.run([
     "build_ext",
     "--inplace"
 ])
+
+from distutils.core import setup
+
+setup(
+    name="a_zero",
+    # package_dir="cython_build"
+)
