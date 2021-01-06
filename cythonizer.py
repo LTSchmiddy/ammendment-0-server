@@ -2,8 +2,8 @@
 import sys, os, json, subprocess, shutil
 
 import Cython
-from src.py.utils import get_dir_tree, list_get
-from src.py.utils import anon_func as af
+from src.utils import get_dir_tree, list_get
+from src.utils import anon_func as af
 
 # from src.py import settings
 # settings.load_settings()
@@ -14,7 +14,7 @@ from Cython.Compiler.Errors import CompileError
 
 python_suffix = ".py"
 cython_suffix = ".pyx"
-source_dir = "./src/py"
+source_dir = "./src"
 out_dir = "./cython_build"
 
 delete_unneeded_files = True

@@ -2,6 +2,7 @@
 
 /venv/*
 /build/*
+/old/*
 /cython_build/*
 **/__pycache__/
 

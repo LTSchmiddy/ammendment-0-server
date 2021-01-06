@@ -1,0 +1,108 @@
+from __future__ import annotations
+
+import module_loader
+host: module_loader.AZeroModuleHost = None
+
+import os
+import socket
+import threading
+from werkzeug.serving import make_server, ssl
+from flask import Flask
+from . import flask_site
+
+settings = None
+
+address = 'localhost'
+used_ports = []
+port: int = None
+server_thread: ServerThread = None
+
+
+# Required Functions:
+def init(name: str, path: str, args: dict[str, str]):
+    global address
+    address = settings.current['interface']['flask-address']
+    global port, server_thread
+    port = find_free_port(settings.current['interface']['flask-port'])
+    server_thread = ServerThread(flask_site.create_app())
+
+
+def get_addr(path: str = ""):
+    return f"http://{address}:{port}/{path}"
+
+def start_server():
+    global server_thread
+    server_thread.start()
+    # print('server started')
+
+def stop_server():
+    global server_thread
+    server_thread.shutdown()
+
+
+# Additional Functions:
+def find_free_port(starting_port=10000, add_to_used = True) -> int:
+    # global port, starting_port
+    # global starting_port, used_ports
+    global used_ports
+
+    """
+    Check if default debug port 8228 is available,
+    increment it by 1 until a port is available.
+    :return: port: str
+    """
+    port_available = False
+    search_port = starting_port
+    sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+
+    while not port_available:
+        if search_port in used_ports:
+            search_port += 1
+            continue
+
+        try:
+            sock.bind(('localhost', search_port))
+            # sock.bind((address, port))
+            port_available = True
+        except:
+            port_available = False
+            # logger.warning('Port %s is in use' % port)
+            search_port += 1
+            # continue
+        finally:
+            sock.close()
+
+    if add_to_used:
+        used_ports.append(search_port)
+
+    print(f" Found Free Port @: {search_port}")
+    return search_port
+
+
+def get_blank_addr():
+    return f"http://{address}:{port}/pages/blank"
+    # return f"http://{address}:{port}/blank"
+
+def get_main_addr():
+    return f"http://{address}:{port}/"
+
+class ServerThread(threading.Thread):
+
+    def __init__(self, app):
+        global address, port
+        threading.Thread.__init__(self)
+        self.srv = make_server(address, port, app, ssl_context=settings.current["server"]["ssl-context"])
+        self.ctx = app.app_context()
+        self.ctx.push()
+
+    def run(self):
+        # log.info('starting server')
+        self.srv.serve_forever()
+        # print("server online")
+
+    def shutdown(self):
+        print("TRYING TO SHUTDOWN SERVER...")
+        # sys.exit(0)
+        self.srv.shutdown()
+        print('SERVER SHUTDOWN SUCCESSFUL!')
+

@@ -1,12 +1,5 @@
-import subprocess
-
-subprocess.run([
-    "pip",
-    "install",
-    "-r"
-    "_requirements.txt"
-])
-
+import subprocess, sys
+ 
 subprocess.run([
     "python",
     "cythonizer.py",
@@ -14,9 +7,8 @@ subprocess.run([
     "--inplace"
 ])
 
-from distutils.core import setup
-
-setup(
-    name="a_zero",
-    # package_dir="cython_build"
-)
+if len(sys.argv) > 1:
+    from distutils.core import setup
+    setup(
+        name="a_zero",
+    )
